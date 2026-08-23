@@ -1,0 +1,14 @@
+{
+  "name": "emergency-outfit-coordinator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "긴급 옷 코디 서비스",
+  "main": "appServer.js",
+  "scripts": {
+    "start": "node appServer.js",
+    "test": "node test-service.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

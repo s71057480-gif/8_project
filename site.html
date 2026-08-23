@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>긴급 옷 코디</title>
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --paper: #ffffff;
+        --line: #d9e1ee;
+        --text: #0f172a;
+        --muted: #5a6b85;
+        --primary: #1141b5;
+        --primary-soft: #e8efff;
+        --accent: #f6b93b;
+      }
+
+      body.dark-mode {
+        --bg: #0f172a;
+        --paper: #1a2540;
+        --line: #2d3f5e;
+        --text: #e8f0fc;
+        --muted: #a8b8d0;
+        --primary: #5e8fff;
+        --primary-soft: #1a3a80;
+        --accent: #ffa500;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "Noto Sans KR", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 100% 0%, #d4eef5 0, transparent 40%),
+          radial-gradient(circle at 0% 100%, #daf2f7 0, transparent 35%),
+          #e3f6f9;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      body.dark-mode {
+        background:
+          radial-gradient(circle at 100% 0%, #2d3f5e 0, transparent 40%),
+          radial-gradient(circle at 0% 100%, #1e2d45 0, transparent 35%),
+          #0f172a;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(8px);
+        background: rgba(245, 247, 251, 0.9);
+        border-bottom: 1px solid var(--line);
+        transition: background-color 0.3s;
+      }
+
+      body.dark-mode .topbar {
+        background: rgba(15, 23, 42, 0.95);
+      }
+
+      .topbar-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.3px;
+      }
+
+      .badge {
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: var(--primary-soft);
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .theme-toggle {
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--text);
+        font-size: 18px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        cursor: pointer;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+
+      .theme-toggle:hover {
+        background: var(--primary-soft);
+      }
+
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 18px 16px 120px;
+      }
+
+      .hero {
+        display: block;
+        margin-bottom: 14px;
+      }
+
+      .card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 16px;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+
+      .hero h1 {
+        margin: 0 0 8px;
+        font-size: 31px;
+        line-height: 1.2;
+      }
+
+      .hero p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .section-title {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      label {
+        display: block;
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px;
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 88px;
+        resize: vertical;
+      }
+
+      .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        border: 0;
+        border-radius: 10px;
+        padding: 10px 14px;
+        background: var(--primary);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        background: #6a7894;
+      }
+
+      .result {
+        border: 1px solid var(--line);
+        background: #f8faff;
+        border-radius: 10px;
+        padding: 12px;
+        white-space: pre-wrap;
+        min-height: 72px;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+
+      body.dark-mode .result {
+        background: #1a2540;
+      }
+
+      .history-result {
+        white-space: normal;
+      }
+
+      .history-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        border: 2px solid #1d4ed8;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 14px;
+      }
+
+      .history-item.selectable {
+        cursor: pointer;
+        border: 2px solid #1d4ed8;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 14px;
+      }
+
+      .history-item.selectable:hover {
+        background: #eef4ff;
+      }
+
+      .history-item.selectable.selected {
+        background: #ffe9e9;
+        border-color: #1d4ed8;
+      }
+
+      .history-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .history-title {
+        font-weight: 700;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .history-like-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        padding: 0;
+        cursor: pointer;
+        line-height: 1;
+        color: #dc2626;
+      }
+
+      .history-like-btn:hover {
+        transform: scale(1.2);
+      }
+
+      .history-recommendation {
+        white-space: pre-wrap;
+      }
+
+      .confirm-box {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        background: #ffe9e9;
+        border-radius: 10px;
+      }
+
+      .tabs {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 30;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        min-height: 78px;
+        background: var(--paper);
+        border-top: 1px solid var(--line);
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+
+      .tab {
+        border-radius: 0;
+        background: transparent;
+        color: var(--muted);
+        font-size: 22px;
+        line-height: 1;
+        white-space: nowrap;
+        padding: 14px 6px;
+      }
+
+      .tab[data-target="home"].active {
+        color: #1141b5;
+        background: linear-gradient(to top, rgba(17, 65, 181, 0.35), rgba(17, 65, 181, 0.05));
+      }
+
+      .tab[data-target="closet"].active {
+        color: #f59e0b;
+        background: linear-gradient(to top, rgba(245, 158, 11, 0.35), rgba(245, 158, 11, 0.05));
+      }
+
+      .tab[data-target="saved"].active {
+        color: #10b981;
+        background: linear-gradient(to top, rgba(16, 185, 129, 0.35), rgba(16, 185, 129, 0.05));
+      }
+
+      .tab[data-target="weekly"].active {
+        color: #f87171;
+        background: linear-gradient(to top, rgba(248, 113, 113, 0.35), rgba(248, 113, 113, 0.05));
+      }
+
+      .tab[data-target="settings"].active {
+        color: #9ca3af;
+        background: linear-gradient(to top, rgba(156, 163, 175, 0.35), rgba(156, 163, 175, 0.05));
+      }
+
+      .panel {
+        display: none;
+      }
+
+      .panel.active {
+        display: block;
+      }
+
+      @keyframes mirrorballSpin {
+        from { transform: rotateZ(0deg); }
+        to { transform: rotateZ(360deg); }
+      }
+
+      @keyframes rainbowFlash {
+        0% { opacity: 0; }
+        20% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+
+      .mirrorball-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        pointer-events: none;
+      }
+
+      .mirrorball {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #fff, #ffd700, #ff69b4, #00bfff, #32cd32, #ff1493);
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), inset -10px -10px 30px rgba(0, 0, 0, 0.4);
+        animation: mirrorballSpin 2s linear infinite;
+      }
+
+      .rainbow-light {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9998;
+        background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+        opacity: 0;
+        animation: rainbowFlash 6s ease-in-out 1;
+      }
+
+      .secret-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(173, 216, 230, 0.95);
+        z-index: 9997;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        animation: secretFadeIn 0.5s ease-in-out;
+      }
+
+      @keyframes secretFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .secret-text {
+        font-size: 200px;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 0 0 60px rgba(0, 0, 0, 0.3);
+        animation: secretPulse 0.6s ease-in-out;
+      }
+
+      @keyframes secretPulse {
+        0% { transform: scale(0.5); opacity: 0; }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); opacity: 1; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand" id="brandName" style="cursor:pointer;">긴급 옷 코디</div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="badge">30초 추천</div>
+          <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">🌙</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero">
+        <article class="card">
+          <h1>긴급 옷 코디</h1>
+          <p>옷장 등록, 빠른 추천, 코디 저장, 주간 계획, 선호 설정 기능을 사용할 수 있습니다.</p>
+        </article>
+      </section>
+
+      <section id="home" class="panel active card">
+        <h2 class="section-title">홈 · 30초 코디 시작</h2>
+        <div class="grid">
+          <div>
+            <label>요청</label>
+            <input id="userRequest" placeholder="예: 오늘 날씨에 맞는 옷 추천해줘" />
+          </div>
+          <div>
+            <label>상황</label>
+            <select id="occasion">
+              <option>출근</option>
+              <option>학교</option>
+              <option selected>약속</option>
+              <option>운동</option>
+              <option>기타</option>
+            </select>
+          </div>
+          <div>
+            <label>기온(도)</label>
+            <div style="display:flex; gap:8px;">
+              <input id="temp" type="number" value="22" style="flex:1;" />
+              <button id="refreshTemp" style="width:auto; padding:10px 14px;">새로고침</button>
+            </div>
+            <small style="display:block; margin-top:6px; color:var(--muted);">새로고침하면 현재 기온으로 다시 반영됩니다.</small>
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <button id="runRecommend">코디 추천 받기</button>
+          <button id="saveFromHome" class="secondary">현재 추천 저장</button>
+        </div>
+        <h3 class="section-title" style="margin-top:12px;">추천 결과</h3>
+        <div id="recommendation" class="result">아직 추천 전</div>
+      </section>
+
+      <section id="closet" class="panel card">
+        <h2 class="section-title">내 옷장 등록</h2>
+        <p style="margin-top:0; margin-bottom:10px; color:var(--muted);">정확하게 적으면 옷을 코디하기가 쉬워져요!</p>
+        <div class="grid">
+          <div>
+            <label>옷장 요약</label>
+            <textarea id="closetSummary" placeholder="예: 반팔티 3장, 청바지 2개, 운동화 1켤레 있어요"></textarea>
+          </div>
+          <div>
+            <label>아이템 목록(콤마 구분)</label>
+            <textarea id="closetItems" placeholder="예: 흰 반팔티, 청바지, 검정 바지, 셔츠, 운동화"></textarea>
+          </div>
+          <div>
+            <label>계절 힌트</label>
+            <select id="seasonHint">
+              <option selected>여름</option>
+              <option>겨울</option>
+              <option>사계절</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <button id="saveCloset">옷장 등록</button>
+        </div>
+        <div id="closetResult" class="result" style="margin-top:10px;">아직 등록 전</div>
+      </section>
+
+      <section id="saved" class="panel card">
+        <h2 class="section-title">저장 코디</h2>
+        <p style="margin-top:0; margin-bottom:10px; color:var(--muted);">각 코디 제목 옆의 하트(❤️)를 클릭해 즐겨찾기 표시! 즐겨찾기한 코디는 목록 맨 위에 자동으로 정렬됩니다.</p>
+        <div class="row">
+          <input id="saveTitle" style="max-width:320px;" placeholder="예: 출근 코디" />
+          <button id="saveOutfit">저장</button>
+          <button id="loadHistory" class="secondary">목록 새로고침</button>
+          <button id="deleteSelectedOutfits" class="secondary">선택 삭제</button>
+          <button id="clearAllOutfits" class="secondary">전체삭제</button>
+          <button id="cancelDeleteMode" class="secondary" style="display:none;">취소</button>
+        </div>
+        <div id="clearAllConfirm" class="confirm-box" style="display:none;">
+          <div style="margin-bottom:8px;">진짜 전체를 삭제하시겠습니까?</div>
+          <div class="row">
+            <button id="confirmClearAll">예</button>
+            <button id="cancelClearAll" class="secondary">아니요</button>
+          </div>
+        </div>
+        <div id="history" class="result history-result" style="margin-top:10px;">저장 코디 없음</div>
+      </section>
+
+      <section id="weekly" class="panel card">
+        <h2 class="section-title">주간 코디 계획</h2>
+        <div class="row">
+          <button id="loadWeekly">주간 계획 불러오기</button>
+        </div>
+        <div id="weeklyResult" class="result" style="margin-top:10px;">아직 조회 전</div>
+      </section>
+
+      <section id="settings" class="panel card">
+        <h2 class="section-title">설정</h2>
+        
+        <div style="margin-bottom:24px;">
+          <h3 style="margin:0 0 12px; font-size:16px;">테마</h3>
+          <div class="row">
+            <button id="settingsThemeToggle" style="width:auto; padding:10px 16px;">🌙 다크모드 ON/OFF</button>
+          </div>
+        </div>
+
+        <h3 class="section-title">선호 설정</h3>
+        <div class="grid">
+          <div>
+            <label>피할 색상(콤마 구분)</label>
+            <input id="avoidColors" placeholder="예: 형광색, 빨간색" />
+          </div>
+          <div>
+            <label>선호 아이템(콤마 구분)</label>
+            <input id="preferItems" placeholder="예: 청바지, 후드티, 운동화" />
+          </div>
+          <div>
+            <label>선호 스타일(콤마 구분)</label>
+            <input id="preferStyles" placeholder="예: 편한 스타일, 깔끔한 스타일" />
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <button id="savePrefs">선호 저장</button>
+        </div>
+        <div id="prefsResult" class="result" style="margin-top:10px;">아직 저장 전</div>
+      </section>
+    </main>
+
+    <nav class="tabs">
+      <button class="tab active" data-target="home">홈</button>
+      <button class="tab" data-target="closet">옷장</button>
+      <button class="tab" data-target="saved">저장</button>
+      <button class="tab" data-target="weekly">주간</button>
+      <button class="tab" data-target="settings">설정</button>
+    </nav>
+
+    <script>
+      const userId = 'demo-user';
+      let latestRecommendation = '';
+      let isDeleteMode = false;
+      let selectedOutfitIds = new Set();
+      let themeClickCount = 0;
+      let themeClickTimer = null;
+      let secretFields = new Set();
+
+      const SECRET_FIELDS = [
+        'userRequest',      // 홈 - 요청
+        'closetSummary',    // 옷장 - 옷장요약
+        'closetItems',      // 옷장 - 아이템목록
+        'avoidColors',      // 설정 - 피할색상
+        'preferItems',      // 설정 - 선호아이템
+        'preferStyles'      // 설정 - 선호스타일
+      ];
+
+      function getLikedOutfits() {
+        const stored = localStorage.getItem('liked-outfits-' + userId);
+        return new Set(stored ? JSON.parse(stored) : []);
+      }
+
+      function saveLikedOutfits(likedSet) {
+        localStorage.setItem('liked-outfits-' + userId, JSON.stringify(Array.from(likedSet)));
+      }
+
+      function toggleLike(outfitId) {
+        const liked = getLikedOutfits();
+        if (liked.has(outfitId)) {
+          liked.delete(outfitId);
+        } else {
+          liked.add(outfitId);
+        }
+        saveLikedOutfits(liked);
+      }
+
+      function isLiked(outfitId) {
+        return getLikedOutfits().has(outfitId);
+      }
+
+      function parseList(text) {
+        return (text || '').split(',').map((v) => v.trim()).filter(Boolean);
+      }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      async function api(path, method, body) {
+        const res = await fetch(path, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: body ? JSON.stringify(body) : undefined,
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '요청 실패');
+        return data;
+      }
+
+      function getCurrentPositionAsync() {
+        return new Promise((resolve, reject) => {
+          if (!navigator.geolocation) {
+            reject(new Error('이 브라우저는 위치 정보를 지원하지 않습니다.'));
+            return;
+          }
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: false,
+            timeout: 8000,
+            maximumAge: 10 * 60 * 1000,
+          });
+        });
+      }
+
+      async function fillCurrentTemperature() {
+        const tempInput = document.getElementById('temp');
+        try {
+          const position = await getCurrentPositionAsync();
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const weatherRes = await fetch(
+            'https://api.open-meteo.com/v1/forecast?latitude=' +
+              encodeURIComponent(String(lat)) +
+              '&longitude=' +
+              encodeURIComponent(String(lon)) +
+              '&current=temperature_2m'
+          );
+          if (!weatherRes.ok) return;
+          const weather = await weatherRes.json();
+          const temp = Number(weather?.current?.temperature_2m);
+          if (Number.isFinite(temp)) {
+            tempInput.value = String(Math.round(temp));
+          }
+        } catch (err) {
+          // 위치/날씨 조회 실패 시 기존 기본값을 그대로 사용한다.
+        }
+      }
+
+      async function runRecommend() {
+        const payload = {
+          userId,
+          userRequest: document.getElementById('userRequest').value,
+          occasion: document.getElementById('occasion').value,
+          temperatureCelsius: Number(document.getElementById('temp').value || 0),
+          useLatestClosetImage: false,
+        };
+        const data = await api('/api/recommend', 'POST', payload);
+        latestRecommendation = data.recommendation || '';
+        document.getElementById('recommendation').textContent = latestRecommendation || '추천 결과 없음';
+      }
+
+      async function registerCloset() {
+        const payload = {
+          userId,
+          summary: document.getElementById('closetSummary').value,
+          items: parseList(document.getElementById('closetItems').value),
+          seasonHint: document.getElementById('seasonHint').value,
+        };
+        const data = await api('/api/closet/register', 'POST', payload);
+        document.getElementById('closetResult').textContent = '등록 완료: ' + (data.entry?.summary || '');
+      }
+
+      async function saveOutfitNow() {
+        if (!latestRecommendation) {
+          alert('먼저 홈에서 코디 추천을 받아주세요.');
+          return;
+        }
+
+        const payload = {
+          userId,
+          title: document.getElementById('saveTitle').value || '오늘 코디',
+          recommendation: latestRecommendation,
+        };
+        await api('/api/outfits/save', 'POST', payload);
+        await loadHistory();
+      }
+
+      async function savePreferences() {
+        const payload = {
+          userId,
+          avoidColors: parseList(document.getElementById('avoidColors').value),
+          preferItems: parseList(document.getElementById('preferItems').value),
+          preferStyles: parseList(document.getElementById('preferStyles').value),
+        };
+        const data = await api('/api/preferences', 'POST', payload);
+        const prefs = data.preferences || {};
+        const avoidColors = Array.isArray(prefs.avoidColors) && prefs.avoidColors.length > 0
+          ? prefs.avoidColors.join(', ')
+          : '없음';
+        const preferItems = Array.isArray(prefs.preferItems) && prefs.preferItems.length > 0
+          ? prefs.preferItems.join(', ')
+          : '없음';
+        const preferStyles = Array.isArray(prefs.preferStyles) && prefs.preferStyles.length > 0
+          ? prefs.preferStyles.join(', ')
+          : '없음';
+
+        document.getElementById('prefsResult').textContent = [
+          '피할 색상: ' + avoidColors,
+          '선호 아이템: ' + preferItems,
+          '선호 스타일: ' + preferStyles,
+        ].join('\n');
+      }
+
+      async function loadHistory() {
+        const res = await fetch('/api/outfits/history?userId=' + encodeURIComponent(userId));
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '조회 실패');
+        const historyEl = document.getElementById('history');
+        if (!Array.isArray(data.outfits) || data.outfits.length === 0) {
+          historyEl.textContent = '저장 코디 없음';
+          return;
+        }
+
+        const likedOutfits = getLikedOutfits();
+        const sortedOutfits = data.outfits.sort((a, b) => {
+          const aLiked = likedOutfits.has(a.id || '');
+          const bLiked = likedOutfits.has(b.id || '');
+          if (aLiked && !bLiked) return -1;
+          if (!aLiked && bLiked) return 1;
+          return 0;
+        });
+
+        historyEl.innerHTML = sortedOutfits
+          .map((o, i) => {
+            const id = escapeHtml(o.id || '');
+            const title = escapeHtml(o.title || '제목 없음');
+            const rec = escapeHtml(o.recommendation || '추천 내용 없음');
+            const isSelected = selectedOutfitIds.has(o.id || '');
+            const itemClass = 'history-item' + (isDeleteMode ? ' selectable' : '') + (isSelected ? ' selected' : '');
+            const a11yAttr = isDeleteMode
+              ? ' role="button" tabindex="0" aria-label="저장 코디 선택 ' + (i + 1) + '" aria-pressed="' + (isSelected ? 'true' : 'false') + '"'
+              : '';
+            const liked = isLiked(o.id || '');
+            const heartIcon = liked ? '❤️' : '🤍';
+            return (
+              '<div class="' + itemClass + '" data-outfit-id="' + id + '"' + a11yAttr + '>' +
+                '<div style="flex:1;">' +
+                  '<div class="history-title">' + (i + 1) + '. ' + title + ' <button class="history-like-btn" data-outfit-id="' + id + '">' + heartIcon + '</button></div>' +
+                  '<div class="history-recommendation">' + rec + '</div>' +
+                '</div>' +
+              '</div>'
+            );
+          })
+          .join('');
+
+        document.querySelectorAll('.history-like-btn').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const outfitId = btn.dataset.outfitId || '';
+            if (!outfitId) return;
+            toggleLike(outfitId);
+            loadHistory().catch((err) => console.error(err));
+          });
+        });
+      }
+
+      function setDeleteMode(nextMode) {
+        isDeleteMode = nextMode;
+        if (!isDeleteMode) {
+          selectedOutfitIds.clear();
+        }
+        const deleteBtn = document.getElementById('deleteSelectedOutfits');
+        const cancelBtn = document.getElementById('cancelDeleteMode');
+        deleteBtn.textContent = isDeleteMode ? '선택 항목 삭제' : '선택 삭제';
+        cancelBtn.style.display = isDeleteMode ? '' : 'none';
+      }
+
+      function setClearAllConfirmVisible(visible) {
+        document.getElementById('clearAllConfirm').style.display = visible ? '' : 'none';
+      }
+
+      async function deleteSelectedOutfits() {
+        if (!isDeleteMode) {
+          selectedOutfitIds.clear();
+          setDeleteMode(true);
+          await loadHistory();
+          return;
+        }
+
+        const selectedIds = Array.from(selectedOutfitIds).filter(Boolean);
+
+        if (selectedIds.length === 0) {
+          alert('삭제할 코디를 먼저 선택해주세요.');
+          return;
+        }
+
+        await api('/api/outfits/delete', 'POST', {
+          userId,
+          outfitIds: selectedIds,
+        });
+
+        setDeleteMode(false);
+        await loadHistory();
+      }
+
+      async function cancelDeleteMode() {
+        setDeleteMode(false);
+        await loadHistory();
+      }
+
+      function beginClearAllOutfits() {
+        setDeleteMode(false);
+        setClearAllConfirmVisible(true);
+      }
+
+      function cancelClearAllOutfits() {
+        setClearAllConfirmVisible(false);
+      }
+
+      async function confirmClearAllOutfits() {
+        await api('/api/outfits/clear', 'POST', { userId });
+        setClearAllConfirmVisible(false);
+        await loadHistory();
+      }
+
+      async function loadWeekly() {
+        const res = await fetch('/api/weekly-plan?userId=' + encodeURIComponent(userId));
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '조회 실패');
+        const text = (data.weeklyPlan || []).map((d) => d.day + '일차: ' + d.suggestion).join('\n');
+        document.getElementById('weeklyResult').textContent = text || '주간 계획 없음';
+      }
+
+      function activateTab(target) {
+        document.querySelectorAll('.panel').forEach((el) => {
+          el.classList.toggle('active', el.id === target);
+        });
+        document.querySelectorAll('.tab').forEach((el) => {
+          el.classList.toggle('active', el.dataset.target === target);
+        });
+
+        if (target === 'saved') {
+          loadHistory().catch((e) => {
+            alert(e.message || '저장 목록을 불러오지 못했습니다.');
+          });
+        }
+
+        if (target === 'settings') {
+          const firstInput = document.getElementById('avoidColors');
+          if (firstInput) {
+            firstInput.focus();
+          }
+        }
+      }
+
+      document.querySelectorAll('.tab').forEach((btn) => {
+        btn.addEventListener('click', () => activateTab(btn.dataset.target));
+      });
+
+      document.getElementById('runRecommend').addEventListener('click', async () => {
+        try { await runRecommend(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('saveFromHome').addEventListener('click', async () => {
+        try { await saveOutfitNow(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('saveCloset').addEventListener('click', async () => {
+        try { await registerCloset(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('saveOutfit').addEventListener('click', async () => {
+        try { await saveOutfitNow(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('loadHistory').addEventListener('click', async () => {
+        try { await loadHistory(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('deleteSelectedOutfits').addEventListener('click', async () => {
+        try { await deleteSelectedOutfits(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('history').addEventListener('click', async (event) => {
+        if (!isDeleteMode) return;
+        const item = event.target.closest('.history-item.selectable');
+        if (!item) return;
+        const outfitId = item.dataset.outfitId || '';
+        if (!outfitId) return;
+        if (selectedOutfitIds.has(outfitId)) {
+          selectedOutfitIds.delete(outfitId);
+        } else {
+          selectedOutfitIds.add(outfitId);
+        }
+        await loadHistory();
+      });
+      document.getElementById('history').addEventListener('keydown', async (event) => {
+        if (!isDeleteMode) return;
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        const item = event.target.closest('.history-item.selectable');
+        if (!item) return;
+        event.preventDefault();
+        const outfitId = item.dataset.outfitId || '';
+        if (!outfitId) return;
+        if (selectedOutfitIds.has(outfitId)) {
+          selectedOutfitIds.delete(outfitId);
+        } else {
+          selectedOutfitIds.add(outfitId);
+        }
+        await loadHistory();
+      });
+      document.getElementById('cancelDeleteMode').addEventListener('click', async () => {
+        try { await cancelDeleteMode(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('clearAllOutfits').addEventListener('click', () => {
+        beginClearAllOutfits();
+      });
+      document.getElementById('cancelClearAll').addEventListener('click', () => {
+        cancelClearAllOutfits();
+      });
+      document.getElementById('confirmClearAll').addEventListener('click', async () => {
+        try { await confirmClearAllOutfits(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('savePrefs').addEventListener('click', async () => {
+        try { await savePreferences(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('loadWeekly').addEventListener('click', async () => {
+        try { await loadWeekly(); } catch (e) { alert(e.message); }
+      });
+      document.getElementById('refreshTemp').addEventListener('click', async () => {
+        try { await fillCurrentTemperature(); } catch (e) { alert(e.message); }
+      });
+
+      function initTheme() {
+        const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+        if (isDarkMode) {
+          document.body.classList.add('dark-mode');
+          document.getElementById('themeToggle').textContent = '☀️';
+          const settingsBtn = document.getElementById('settingsThemeToggle');
+          if (settingsBtn) {
+            settingsBtn.textContent = '☀️ 다크모드 ON/OFF';
+          }
+        }
+      }
+
+      function startMirrorballParty() {
+        const container = document.createElement('div');
+        container.className = 'mirrorball-container';
+        container.innerHTML = '<div class="mirrorball"></div>';
+        document.body.appendChild(container);
+
+        const light = document.createElement('div');
+        light.className = 'rainbow-light';
+        document.body.appendChild(light);
+
+        setTimeout(() => {
+          container.remove();
+          light.remove();
+        }, 6000);
+      }
+
+      function startSecretScreen() {
+        const screen = document.createElement('div');
+        screen.className = 'secret-screen';
+        screen.innerHTML = '<div class="secret-text">67</div>';
+        document.body.appendChild(screen);
+
+        setTimeout(() => {
+          screen.remove();
+        }, 3000);
+      }
+
+      function checkSecretCombo() {
+        const allFilled = SECRET_FIELDS.every(fieldId => secretFields.has(fieldId));
+        if (allFilled) {
+          startSecretScreen();
+          secretFields.clear();
+          SECRET_FIELDS.forEach(fieldId => {
+            const el = document.getElementById(fieldId);
+            if (el) el.value = '';
+          });
+        }
+      }
+
+      SECRET_FIELDS.forEach(fieldId => {
+        const el = document.getElementById(fieldId);
+        if (el) {
+          el.addEventListener('input', (e) => {
+            if (e.target.value === '6767') {
+              secretFields.add(fieldId);
+              checkSecretCombo();
+            } else {
+              secretFields.delete(fieldId);
+            }
+          });
+        }
+      });
+
+      document.getElementById('brandName').addEventListener('click', () => {
+        // 브랜드명 클릭은 더 이상 사용하지 않음
+      });
+
+      function toggleTheme() {
+        const isDarkMode = document.body.classList.toggle('dark-mode');
+        localStorage.setItem('dark-mode', isDarkMode);
+        document.getElementById('themeToggle').textContent = isDarkMode ? '☀️' : '🌙';
+        const settingsBtn = document.getElementById('settingsThemeToggle');
+        if (settingsBtn) {
+          settingsBtn.textContent = (isDarkMode ? '☀️' : '🌙') + ' 다크모드 ON/OFF';
+        }
+
+        themeClickCount++;
+        clearTimeout(themeClickTimer);
+
+        if (themeClickCount >= 50) {
+          startMirrorballParty();
+          themeClickCount = 0;
+        } else {
+          themeClickTimer = setTimeout(() => {
+            themeClickCount = 0;
+          }, 3000);
+        }
+      }
+
+      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+      if (document.getElementById('settingsThemeToggle')) {
+        document.getElementById('settingsThemeToggle').addEventListener('click', toggleTheme);
+      }
+
+      initTheme();
+      fillCurrentTemperature();
+    </script>
+  </body>
+</html>

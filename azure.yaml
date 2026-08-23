@@ -1,0 +1,11 @@
+name: emergency-outfit-coordinator
+metadata:
+  template: emergency-outfit-coordinator@1.0.0
+services:
+  web:
+    project: .
+    language: js
+    host: appservice
+infra:
+  provider: bicep
+  path: infra
