@@ -68,7 +68,8 @@ function buildStylistPrompt() {
     '불필요하게 과장하거나 같은 표현을 반복하지 마라.',
     '답변은 2~3개 코디를 제시하고, 각 코디마다 이유를 한 줄로 설명해라.',
     '비난하거나 단정적인 표현은 피하고, 실용적으로 제안해라.',
-    '형식: 번호 목록으로 코디 이름, 아이템 조합, 이유를 짧게 작성해라.'
+    '매우 중요: 절대 마크다운을 사용하지 마라. **기호, *기호, #기호를 사용하면 안 된다. 순수 한글 텍스트만 사용해라.',
+    '형식: 1번, 2번 이런 식으로 번호만 사용하고, 코디 이름과 아이템을 함께 쓰고, 이유를 짧게 덧붙여라.'
   ].join(' ');
 }
 
@@ -96,6 +97,20 @@ function buildPreferenceLines(preferences) {
     lines.push(`선호 스타일: ${preferences.preferStyles.join(', ')}`);
   }
   return lines;
+}
+
+function removeMarkdown(text) {
+  // 모든 마크다운 형식 제거
+  if (typeof text !== 'string') return text;
+  
+  // **bold** → bold
+  text = text.replace(/\*\*(.+?)\*\*/g, '$1');
+  // *italic* → italic
+  text = text.replace(/\*(.+?)\*/g, '$1');
+  // # 헤더 제거
+  text = text.replace(/^#+\s+/gm, '');
+  
+  return text;
 }
 
 async function requestAzureOpenAI({ messages, temperature = 0.6, maxCompletionTokens = 400 }) {
@@ -158,7 +173,7 @@ async function suggestOutfit({
     });
   }
 
-  return requestAzureOpenAI({
+  const response = await requestAzureOpenAI({
     messages: [
       { role: 'system', content: buildStylistPrompt() },
       { role: 'user', content: userContent },
@@ -166,6 +181,8 @@ async function suggestOutfit({
     temperature: 0.6,
     maxCompletionTokens: 400,
   });
+
+  return removeMarkdown(response);
 }
 
 async function analyzeClosetImage({ imagePath, extraNote }) {
